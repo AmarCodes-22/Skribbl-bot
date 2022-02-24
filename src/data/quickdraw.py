@@ -12,6 +12,7 @@ class Quickdraw:
     def __init__(self, labels_fpath: str) -> None:
         self.bucket_name = "quickdraw_dataset"
         self.labels = self._load_labels(labels_fpath)
+        self.num_classes = len(self.labels)
 
     def download_binary_format(self, class_names: list, dest_dir: str) -> None:
         """Downloads binary format of the dataset into dest_dir
@@ -24,9 +25,6 @@ class Quickdraw:
         assert len(class_names) > 0
 
         self._create_dir_if_not_exists(dest_dir)
-        # if not os.path.exists(dest_dir):
-        #     print(f"Creating directory {dest_dir}")
-        #     os.makedirs(dest_dir)
 
         for class_name in class_names:
             blob_name = f"full/binary/{class_name}.bin"

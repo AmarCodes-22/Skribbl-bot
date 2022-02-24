@@ -11,42 +11,31 @@ from src.data.quickdraw import Quickdraw
 
 class QuickdrawVersion(Quickdraw):
     def __init__(
-        self,
-        labels_fpath: str,
-        dir_path: str,
-        num_classes: int,
-        num_images_per_class: int,
-        classes: Union[list, str] = "random",
+        self, labels_fpath: str, dir_path: str, num_images_per_class: int
     ) -> None:
+        """Initialize a version of Quickdraw
+
+        Args:
+            labels_fpath (str): Path to text file containing labels of classes
+                to generate seperated by newline
+            dir_path (str): Directory where the version is to be generated
+            num_images_per_class (int): Number of images to generate per class
+        """
         super().__init__(labels_fpath)
 
+        self._setup_directories(dir_path)
         self.num_images_per_class = num_images_per_class
 
-        if isinstance(classes, list):
-            num_classes = len(classes)
-            self.classes = classes
-        elif isinstance(classes, str):
-            assert num_classes is not None
-            self.classes = random.sample(self.labels, num_classes)
-            print(f"Randomly chosen classes {self.classes}")
-
-        self.dataset_dir = dir_path
-        self.binary_files_dir = os.path.join(dir_path, "binary")
-        self.images_dir = os.path.join(dir_path, "images")
-
-        self._create_dir_if_not_exists(self.dataset_dir)
-        self._create_dir_if_not_exists(self.binary_files_dir)
-        self._create_dir_if_not_exists(self.images_dir)
-
     def create_version_in_directory(self):
+        """Generates the dataset version into dir_path"""
 
         self.download_binary_format(
-            class_names=self.classes, dest_dir=self.binary_files_dir
+            class_names=self.labels, dest_dir=self.binary_files_dir
         )
 
         for binary_fname in os.listdir(self.binary_files_dir):
-
             class_name = binary_fname[:-4]
+
             class_images_dir = os.path.join(self.images_dir, class_name)
             self._create_dir_if_not_exists(class_images_dir)
 
@@ -65,6 +54,12 @@ class QuickdrawVersion(Quickdraw):
                 )
 
     def split_train_test(self, test_ratio: float = 0.1):
+        """Splits the images into train and test
+
+        Args:
+            test_ratio (float, optional): Ratio of images to use for testing.
+                Defaults to 0.1.
+        """
         self.train_dir = os.path.join(self.images_dir, "train")
         self.test_dir = os.path.join(self.images_dir, "test")
 
@@ -100,3 +95,12 @@ class QuickdrawVersion(Quickdraw):
 
     def _chooose_random_drawings(self, all_drawings: list, num_drawings_to_choose: int):
         return random.sample(all_drawings, num_drawings_to_choose)
+
+    def _setup_directories(self, directory_path: str):
+        self.dataset_dir = directory_path
+        self.binary_files_dir = os.path.join(directory_path, "binary")
+        self.images_dir = os.path.join(directory_path, "images")
+
+        self._create_dir_if_not_exists(self.dataset_dir)
+        self._create_dir_if_not_exists(self.binary_files_dir)
+        self._create_dir_if_not_exists(self.images_dir)
