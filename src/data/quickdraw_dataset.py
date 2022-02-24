@@ -30,9 +30,8 @@ class Quickdraw:
             os.makedirs(dest_dir)
 
         for class_name in class_names:
-            url_fname = class_name.replace(" ", "%20").replace("\n", " ").strip()
-            blob_name = f"full/binary/{url_fname}.bin"
-            dest_fname = os.path.join(dest_dir, f"{class_name.strip()}.bin")
+            blob_name = f"full/binary/{class_name}.bin"
+            dest_fname = os.path.join(dest_dir, f"{class_name}.bin")
 
             if not os.path.exists(dest_fname):
                 self._download_public_file(
@@ -67,9 +66,9 @@ class Quickdraw:
                     break
         return drawings
 
-    def convert_strokes_to_images(
+    def convert_strokes_to_image(
         self,
-        vector_image,
+        strokes,
         side=256,
         line_diameter=4,
         bg_color=(1, 1, 1),
@@ -78,7 +77,7 @@ class Quickdraw:
         """Convert stroke to Numpy arrays
 
         Args:
-            vector_image (list): A list of strokes where (x, y) points are provided
+            strokes (list): A list of strokes where (x, y) points are provided
             side (int, optional): Length of side of an image. Defaults to 256.
             line_diameter (int, optional): Width of strokes. Defaults to 4.
             bg_color (tuple, optional): Background color for image.
@@ -100,7 +99,7 @@ class Quickdraw:
         ctx.set_source_rgb(*bg_color)
         ctx.paint()
 
-        centered_image = self._center_image(vector_image, side)
+        centered_image = self._center_image(strokes, side)
 
         ctx.set_source_rgb(*fg_color)
         for xv, yv in centered_image:
@@ -121,11 +120,11 @@ class Quickdraw:
             image (np.ndarray): Numpy array of pixel intensities
             fpath (str): path to the file where image is to be stored
         """
-        print(f"Saving image to {fpath}")
+        # print(f"Saving image to {fpath}")
         mpimg.imsave(fpath, image, cmap="gray")
 
     def _download_public_file(
-        self, source_blob_name: str, destination_fname: str, bucket_name: str = None
+        self, source_blob_name: str, destination_fname: str, bucket_name: str = ''
     ) -> None:
         """Download file from public file storage
 
@@ -148,7 +147,7 @@ class Quickdraw:
 
     def _load_labels(self, labels_file_path: str) -> list:
         labels_file = open(labels_file_path, "r")
-        return labels_file.readlines()
+        return labels_file.read().splitlines()
 
     def _unpack_drawing(self, file_handle) -> dict:
         (key_id,) = unpack("Q", file_handle.read(8))
@@ -157,19 +156,19 @@ class Quickdraw:
         (timestamp,) = unpack("I", file_handle.read(4))
         (n_strokes,) = unpack("H", file_handle.read(2))
 
-        image = []
+        strokes = []
         for i in range(n_strokes):
             (n_points,) = unpack("H", file_handle.read(2))
             fmt = str(n_points) + "B"
             x = unpack(fmt, file_handle.read(n_points))
             y = unpack(fmt, file_handle.read(n_points))
-            image.append((x, y))
+            strokes.append((x, y))
 
         return {
             "country_code": country_code,
             "recognized": recognized,
             "timestamp": timestamp,
-            "image": image,
+            "strokes": strokes,
         }
 
     def _set_options_for_context(self, context) -> cairo.Context:
