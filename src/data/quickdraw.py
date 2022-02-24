@@ -23,9 +23,10 @@ class Quickdraw:
         assert dest_dir is not None
         assert len(class_names) > 0
 
-        if not os.path.exists(dest_dir):
-            print(f"Creating directory {dest_dir}")
-            os.makedirs(dest_dir)
+        self._create_dir_if_not_exists(dest_dir)
+        # if not os.path.exists(dest_dir):
+        #     print(f"Creating directory {dest_dir}")
+        #     os.makedirs(dest_dir)
 
         for class_name in class_names:
             blob_name = f"full/binary/{class_name}.bin"
@@ -52,6 +53,7 @@ class Quickdraw:
         assert binary_fpath is not None
 
         class_name = os.path.basename(binary_fpath)[:-4]
+        print(f'Loading images for class {class_name}')
         drawings = list()
 
         with open(binary_fpath, "rb") as f:
@@ -122,7 +124,7 @@ class Quickdraw:
         mpimg.imsave(fpath, image, cmap="gray")
 
     def _download_public_file(
-        self, source_blob_name: str, destination_fname: str, bucket_name: str = ''
+        self, source_blob_name: str, destination_fname: str, bucket_name: str = ""
     ) -> None:
         """Download file from public file storage
 
@@ -190,3 +192,8 @@ class Quickdraw:
     def _convert_raster_to_nparray(self, raster, side_len):
         raster_image = np.copy(np.asarray(raster)[::4])
         return raster_image.reshape((side_len, side_len))
+
+    def _create_dir_if_not_exists(self, dir_path: str):
+        if not os.path.exists(dir_path):
+            print(f"Creating directory {dir_path}")
+            os.makedirs(dir_path)
