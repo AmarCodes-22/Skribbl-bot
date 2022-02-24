@@ -30,7 +30,7 @@ class QuickdrawVersion(Quickdraw):
         """Generates the dataset version into dir_path"""
 
         self.download_binary_format(
-            class_names=self.labels, dest_dir=self.binary_files_dir
+            dest_dir=self.binary_files_dir
         )
 
         for binary_fname in os.listdir(self.binary_files_dir):
