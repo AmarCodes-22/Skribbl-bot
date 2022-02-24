@@ -3,3 +3,4 @@ test.py
 .vscode
 /data/
 *.pyc
+/models/
