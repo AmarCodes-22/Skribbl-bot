@@ -11,10 +11,12 @@ import numpy as np
 class Quickdraw:
     def __init__(self, labels_fpath: str) -> None:
         self.bucket_name = "quickdraw_dataset"
+
+        assert os.path.exists(labels_fpath)
         self.labels = self._load_labels(labels_fpath)
         self.num_classes = len(self.labels)
 
-    def download_binary_format(self, class_names: list, dest_dir: str) -> None:
+    def download_binary_format(self, dest_dir: str) -> None:
         """Downloads binary format of the dataset into dest_dir
 
         Args:
@@ -22,11 +24,11 @@ class Quickdraw:
             dest_dir (str): Path to directory where files will be downloaded
         """
         assert dest_dir is not None
-        assert len(class_names) > 0
 
         self._create_dir_if_not_exists(dest_dir)
+        assert os.path.exists(dest_dir)
 
-        for class_name in class_names:
+        for class_name in self.labels:
             blob_name = f"full/binary/{class_name}.bin"
             dest_fname = os.path.join(dest_dir, f"{class_name}.bin")
 
@@ -48,7 +50,7 @@ class Quickdraw:
             list: List of dictionaries where each dictionary contains a single
             drawing
         """
-        assert binary_fpath is not None
+        assert os.path.exists(binary_fpath)
 
         class_name = os.path.basename(binary_fpath)[:-4]
         print(f"Loading images for class {class_name}")
@@ -66,11 +68,11 @@ class Quickdraw:
 
     def convert_strokes_to_image(
         self,
-        strokes,
-        side=256,
-        line_diameter=4,
-        bg_color=(1, 1, 1),
-        fg_color=(0, 0, 0),
+        strokes: list,
+        side: int = 256,
+        line_diameter: int = 4,
+        bg_color: tuple = (1, 1, 1),
+        fg_color: tuple = (0, 0, 0),
     ) -> np.ndarray:
         """Convert stroke to Numpy arrays
 
