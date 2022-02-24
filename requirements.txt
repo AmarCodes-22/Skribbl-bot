@@ -41,6 +41,10 @@ rsa==4.8
 six==1.16.0
 soupsieve==2.3.1
 tomli==2.0.1
+# I am using torch cpu version as i don't have a GPU, change it if you have one
+# torch==1.10.2+cu111
+# torchaudio==0.10.2+cu111
+# torchvision==0.11.3+cu111
 torch==1.10.2+cpu
 torchaudio==0.10.2+cpu
 torchvision==0.11.3+cpu
