@@ -1,11 +1,9 @@
 import os
-import random
 import struct
 from struct import unpack
 
 import cairocffi as cairo
 from google.cloud import storage
-import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 
