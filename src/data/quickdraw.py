@@ -53,7 +53,7 @@ class Quickdraw:
         assert binary_fpath is not None
 
         class_name = os.path.basename(binary_fpath)[:-4]
-        print(f'Loading images for class {class_name}')
+        print(f"Loading images for class {class_name}")
         drawings = list()
 
         with open(binary_fpath, "rb") as f:
