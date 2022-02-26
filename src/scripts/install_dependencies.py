@@ -163,8 +163,11 @@ def install_dependencies(cuda_version=None):
 
     # Sequence of installation to be maintained
     system.install_java()
-    requirements_file_path = "requirements/" + (
-        "production.txt" if args.environment == "prod" else "developer.txt")
+
+    # requirements_file_path = "requirements/" + (
+    #     "production.txt" if args.environment == "prod" else "developer.txt")
+
+    requirements_file_path = "torchserve_requirements/common.txt"
     system.install_python_packages(cuda_version, requirements_file_path)
 
 
