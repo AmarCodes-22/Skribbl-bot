@@ -13,7 +13,7 @@ class Quickdraw:
         self.bucket_name = "quickdraw_dataset"
 
         assert os.path.exists(labels_fpath)
-        self.labels = self._load_labels(labels_fpath)
+        self.labels = self._load_labels_from_file(labels_fpath)
         self.num_classes = len(self.labels)
 
     def download_binary_format(self, dest_dir: str) -> None:
@@ -145,7 +145,7 @@ class Quickdraw:
             )
         )
 
-    def _load_labels(self, labels_file_path: str) -> list:
+    def _load_labels_from_file(self, labels_file_path: str) -> list:
         labels_file = open(labels_file_path, "r")
         return labels_file.read().splitlines()
 

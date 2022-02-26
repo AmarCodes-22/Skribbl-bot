@@ -1,37 +1,62 @@
 import os
 import random
 import shutil
-from typing import Union
-from matplotlib.pyplot import draw
 
-from torch import classes
+from torchvision import datasets
 
 from src.data.quickdraw import Quickdraw
 
 
 class QuickdrawVersion(Quickdraw):
-    def __init__(
-        self, labels_fpath: str, dir_path: str, num_images_per_class: int
-    ) -> None:
-        """Initialize a version of Quickdraw
+    def __init__(self, labels_fpath: str = "", num_images_per_class: int = 0) -> None:
+        """Use this class to create new dataset versions or interact with an existing one
 
         Args:
-            labels_fpath (str): Path to text file containing labels of classes
-                to generate seperated by newline
-            dir_path (str): Directory where the version is to be generated
-            num_images_per_class (int): Number of images to generate per class
+            labels_fpath (str, optional): Path to text file containing class names to
+                generate seperated by newline if creating a new dataset. Optional if
+                loading an existing dataset
+            num_images_per_class (int, optional): Number of images to generate per
+                class, Defaults to 0
         """
-        super().__init__(labels_fpath)
+        # only when creating a new version
+        if len(labels_fpath) > 0:
+            super().__init__(labels_fpath)
+            if num_images_per_class > 0:
+                self.num_images_per_class = num_images_per_class
 
-        self._setup_directories(dir_path)
-        self.num_images_per_class = num_images_per_class
+    def load_from_directory(self, dir_path: str):
+        """
+        Load a previously created dataset from directory.
+        Provide path to the folder containing 'train' and 'test' folders
+        """
+        self.data_dir = dir_path
 
-    def create_version_in_directory(self):
-        """Generates the dataset version into dir_path"""
+        image_datasets = {
+            x: datasets.ImageFolder(
+                os.path.join(self.data_dir, x),
+            )
+            for x in ["train", "test"]
+        }
 
-        self.download_binary_format(
-            dest_dir=self.binary_files_dir
+        self.labels = image_datasets["train"].classes
+        self.num_classes = len(self.labels)
+        self.num_images_per_class = (
+            len(image_datasets["train"]) // self.num_classes
+            + len(image_datasets["test"]) // self.num_classes
         )
+
+        return image_datasets
+
+    def create_version_in_directory(self, dir_path: str):
+        """Generates a version in dir_path
+
+        Args:
+            dir_path (str): path to the folder where to generate the dataset
+        """
+        self.data_dir = dir_path
+        self._setup_directories(dir_path)
+
+        self.download_binary_format(dest_dir=self.binary_files_dir)
 
         for binary_fname in os.listdir(self.binary_files_dir):
             class_name = binary_fname[:-4]
