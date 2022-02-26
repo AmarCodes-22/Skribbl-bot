@@ -1,5 +1,6 @@
 env
 test_implementation.ipynb
+test_prototype.ipynb
 .vscode
 /data/
 *.pyc
