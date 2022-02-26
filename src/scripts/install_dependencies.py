@@ -40,7 +40,7 @@ class Common():
                 )
         else:
             os.system(
-                f"python -m pip install -U -r requirements/torch_{platform.system().lower()}.txt"
+                f"python -m pip install -U -r torchserve_requirements/torch_{platform.system().lower()}.txt"
             )
 
     def install_python_packages(self, cuda_version, requirements_file_path):
@@ -77,6 +77,7 @@ class Linux(Common):
     def install_java(self):
         if os.system("javac --version") != 0 or args.force:
             os.system(f"{self.sudo_cmd}apt-get install -y openjdk-11-jdk")
+            # os.system(f"{self.sudo_cmd}apt-get install -y openjdk-11-jdk")
 
     def install_nodejs(self):
         if os.system("node -v") != 0 or args.force:

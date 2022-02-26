@@ -1,4 +1,5 @@
-echo 'here'
+echo '**********debug**********'
+which apt-get
 
 python src/scripts/install_dependencies.py
 
