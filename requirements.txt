@@ -1,20 +1,15 @@
 asttokens==2.0.5
 backcall==0.2.0
-beautifulsoup4 @ file:///tmp/build/80754af9/beautifulsoup4_1631874778482/work
 black==22.1.0
 brotlipy==0.7.0
 cachetools==5.0.0
 cairocffi==1.3.0
 captum==0.4.1
 certifi==2021.10.8
-cffi @ file:///opt/conda/conda-bld/cffi_1642701102775/work
-chardet @ file:///tmp/build/80754af9/chardet_1607706746162/work
 charset-normalizer==2.0.12
 click==8.0.4
 conda==4.11.0
 conda-build==3.21.7
-conda-package-handling @ file:///tmp/build/80754af9/conda-package-handling_1618262148928/work
-cryptography @ file:///tmp/build/80754af9/cryptography_1639400846433/work
 cycler==0.11.0
 Cython==0.29.28
 debugpy==1.5.1
@@ -22,10 +17,8 @@ decorator==5.1.1
 entrypoints==0.4
 enum-compat==0.0.3
 executing==0.8.2
-filelock @ file:///opt/conda/conda-bld/filelock_1642510437405/work
 fonttools==4.29.1
 future==0.18.2
-glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
 google==3.0.0
 google-api-core==2.5.0
 google-api-python-client==2.37.0
@@ -37,19 +30,15 @@ google-crc32c==1.3.0
 google-resumable-media==2.2.1
 googleapis-common-protos==1.54.0
 httplib2==0.20.4
-idna @ file:///tmp/build/80754af9/idna_1637925883363/work
 ipykernel==6.9.1
 ipython==8.1.0
 jedi==0.18.1
-Jinja2 @ file:///tmp/build/80754af9/jinja2_1612213139570/work
 jsonpatch==1.32
 jsonpointer==2.2
 jupyter-client==7.1.2
 jupyter-core==4.9.2
 kaggle==1.5.12
 kiwisolver==1.3.2
-libarchive-c @ file:///tmp/build/80754af9/python-libarchive-c_1617780486945/work
-MarkupSafe @ file:///tmp/build/80754af9/markupsafe_1621528148836/work
 matplotlib==3.5.1
 matplotlib-inline==0.1.3
 mypy==0.931
@@ -63,7 +52,6 @@ pathspec==0.9.0
 pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==9.0.0
-pkginfo @ file:///tmp/build/80754af9/pkginfo_1643162084911/work
 platformdirs==2.5.1
 prompt-toolkit==3.0.28
 protobuf==3.19.4
@@ -73,22 +61,15 @@ pure-eval==0.2.2
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycosat==0.6.3
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
 Pygments==2.11.2
-pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
 pyparsing==3.0.7
-PySocks @ file:///tmp/build/80754af9/pysocks_1605305779399/work
 python-dateutil==2.8.2
 python-slugify==6.1.0
 pytz==2021.3
 PyYAML==6.0
 pyzmq==22.3.0
-requests @ file:///opt/conda/conda-bld/requests_1641824580448/work
 rsa==4.8
-ruamel-yaml-conda @ file:///tmp/build/80754af9/ruamel_yaml_1616016699510/work
 scipy==1.8.0
-six @ file:///tmp/build/80754af9/six_1644875935023/work
-soupsieve @ file:///tmp/build/80754af9/soupsieve_1636706018808/work
 stack-data==0.2.0
 text-unidecode==1.3
 tomli==2.0.1
@@ -101,11 +82,9 @@ torchserve==0.5.2
 torchtext==0.11.0
 torchvision==0.11.1+cpu
 tornado==6.1
-tqdm @ file:///tmp/build/80754af9/tqdm_1635330843403/work
 traitlets==5.1.1
 typing_extensions==4.1.1
 uritemplate==4.1.1
-urllib3 @ file:///opt/conda/conda-bld/urllib3_1643638302206/work
 visdom==0.1.8.9
 wcwidth==0.2.5
 websocket-client==1.3.1
