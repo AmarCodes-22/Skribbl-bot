@@ -1,8 +1,10 @@
 echo '**********debug**********'
-which apt-get
+# which apt-get
 
-apt-get update
+# apt-get update
 
 python src/scripts/install_dependencies.py
+
+which torchserve
 
 torchserve --start --model-store ./serve/baseline/model_store --models resnet-18=resnet-18.mar --ncs
