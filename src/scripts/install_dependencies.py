@@ -76,7 +76,7 @@ class Linux(Common):
 
     def install_java(self):
         if os.system("javac --version") != 0 or args.force:
-            os.system(f"{self.sudo_cmd}apt-get install -y openjdk-11-jdk")
+            os.system(f"{self.sudo_cmd}apt install -y openjdk-11-jdk")
             # os.system(f"{self.sudo_cmd}apt-get install -y openjdk-11-jdk")
 
     def install_nodejs(self):
