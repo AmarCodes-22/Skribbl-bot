@@ -38,17 +38,17 @@ class BaseLine:
         best_acc = 0.0
 
         for epoch in range(num_epochs):
-            print(f'Epoch: {epoch}/{num_epochs - 1}')
-            print('-' * 10)
+            print(f"Epoch: {epoch}/{num_epochs - 1}")
+            print("-" * 10)
 
-            for phase in ['train', 'test']:
-                if phase == 'train':
+            for phase in ["train", "test"]:
+                if phase == "train":
                     self.model.train()
                 else:
                     self.model.eval()
 
                 running_loss = 0.0
-                running_corrects = 0.0
+                running_corrects = torch.Tensor(0.0)
 
                 for inputs, labels in self.dataloaders[phase]:
                     inputs = inputs.to(self.device)
@@ -56,34 +56,40 @@ class BaseLine:
 
                     self.optimizer.zero_grad()
 
-                    with torch.set_grad_enabled(phase == 'train'):
+                    with torch.set_grad_enabled(phase == "train"):
                         outputs = self.model(inputs)
                         _, preds = torch.max(outputs, 1)
                         loss = self.criterion(outputs, labels)
 
-                        if phase == 'train':
+                        if phase == "train":
                             loss.backward()
                             self.optimizer.step()
 
                     running_loss += loss.item() * inputs.size(0)
                     running_corrects += torch.sum(preds == labels.data)
-                if phase == 'train':
+                if phase == "train":
                     self.optimizer.step()
 
                 epoch_loss = running_loss / self.dataset_sizes[phase]
                 epoch_acc = running_corrects.double() / self.dataset_sizes[phase]
 
-                print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
+                print(
+                    "{} Loss: {:.4f} Acc: {:.4f}".format(phase, epoch_loss, epoch_acc)
+                )
 
-                if phase == 'test' and epoch_acc > best_acc:
+                if phase == "test" and epoch_acc > best_acc:
                     best_acc = epoch_acc
                     best_model_weights = copy.deepcopy(self.model.state_dict())
 
                 print()
 
         time_elapsed = time.time() - since
-        print('Training complete in {:.0f}m {:0.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-        print('Best test Acc: {:4f}'.format(best_acc))
+        print(
+            "Training complete in {:.0f}m {:0.0f}s".format(
+                time_elapsed // 60, time_elapsed % 60
+            )
+        )
+        print("Best test Acc: {:4f}".format(best_acc))
 
         self.model.load_state_dict(best_model_weights)
         return self.model
@@ -91,13 +97,13 @@ class BaseLine:
     def create_dataloaders(
         self,
         datasets_dict,
-        dataset_transforms = None,
+        dataset_transforms=None,
         batch_size: int = 4,
         shuffle: bool = True,
-        **kwargs
+        **kwargs,
     ):
         """Using datasets_dict that we get from quickdraw-version, create dataloaders"""
-        self.dataset_sizes = {x: len(datasets_dict[x]) for x in ['train', 'test']}
+        self.dataset_sizes = {x: len(datasets_dict[x]) for x in ["train", "test"]}
         self.class_names = datasets_dict["train"].classes
 
         if dataset_transforms is None:
@@ -177,7 +183,7 @@ class BaseLine:
         inp = std * inp + mean
         inp = np.clip(inp, 0, 1)
 
-        plt.figure(figsize=(12,3))
+        plt.figure(figsize=(12, 3))
         plt.imshow(inp)
         if title is not None:
             plt.title(title)
