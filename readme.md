@@ -19,3 +19,5 @@ Some of the outputs of the model being predicted in real-time are shown below:-
 
 Please don't judge me 
 ![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/horse.png)
+
+There are no steps to reproduce, however if you want to try it out on your own system, feel free to get in touch.
