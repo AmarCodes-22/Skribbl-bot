@@ -6,6 +6,7 @@ The model used is trained on [Google's Quickdraw Dataset](https://quickdraw.with
 This project uses [OpenCV](https://opencv.org/) to capture the drawings being drawn by the player, [PyTorch](https://pytorch.org/) as the deep learning framework, and [Torchserve](https://pytorch.org/serve/#:~:text=TorchServe%20is%20a%20performant%2C%20flexible,eager%20mode%20and%20torschripted%20models.) to deploy model on localhost.
 
 Some of the outputs of the model being predicted in real-time are shown below:-
+
 Don't focus on the word shown by Skribbl, didn't use custom words for the game
 
 ![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/airplane.png)
