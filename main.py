@@ -24,9 +24,11 @@ def main():
         )
         if response.status_code == 200:
             output = response.json()
-            print(output)
+            for k, v in output.items():
+                print('Class - {}, Conf - {:.2f}'.format(k, v))
+                break
 
-        sleep(1)
+        sleep(3)
 
 
 if __name__ == "__main__":
