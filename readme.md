@@ -9,3 +9,13 @@ Some of the outputs of the model being predicted in real-time are shown below:-
 
 ![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/airplane.png)
 
+![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/bear.png)
+
+![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/car.png)
+
+![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/cat.png)
+
+![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/cruise%20ship.png)
+
+Please don't judge me 
+![](https://github.com/AmarCodes-22/Skribbl-bot/blob/main/assets/predictions/horse.png)
